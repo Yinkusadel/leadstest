@@ -334,8 +334,18 @@ export function FilterMenu({
         )}
       </button>
 
+      {/* Below `sm` this is a bottom sheet: the trigger sits too far right for a
+          256px anchored panel to fit, so it would run off the left edge. */}
       {open && (
-        <div className="animate-pop absolute top-[calc(100%+8px)] right-0 z-40 w-64 origin-top-right rounded-2xl border border-line bg-raised p-3 shadow-2xl shadow-black/60">
+        <div
+          aria-hidden
+          onClick={() => setOpen(false)}
+          className="animate-fade-in fixed inset-0 z-40 bg-black/60 backdrop-blur-sm sm:hidden"
+        />
+      )}
+
+      {open && (
+        <div className="animate-rise fixed inset-x-0 bottom-0 z-50 max-h-[75svh] overflow-y-auto rounded-t-2xl border border-line bg-raised p-4 pb-6 shadow-2xl shadow-black/60 sm:animate-pop sm:absolute sm:inset-x-auto sm:top-[calc(100%+8px)] sm:right-0 sm:bottom-auto sm:w-64 sm:origin-top-right sm:rounded-2xl sm:p-3 sm:pb-3">
           {groups.map((g) => (
             <div key={g.label} className="mb-3 last:mb-0">
               <p className="mb-1.5 text-[11px] tracking-wide text-fg-mute uppercase">
