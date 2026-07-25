@@ -147,10 +147,12 @@ export function LeadDetail({
 
             <div className="space-y-4">
               <div
-                className="group animate-fade-up flex flex-col items-center rounded-2xl border border-line bg-card p-4"
+                className="group animate-fade-up flex flex-col items-center overflow-hidden rounded-2xl border border-line bg-card p-4"
                 style={{ animationDelay: '40ms' }}
               >
-                <p className="text-[13px] text-fg-dim">Detected from group</p>
+                <span className="rounded-full border border-line bg-raised px-3 py-1 text-[12px] text-fg-dim">
+                  Detected from group
+                </span>
                 <img
                   src={watchImage(lead.image)}
                   alt={`${lead.title} as detected in the group message`}
@@ -163,7 +165,9 @@ export function LeadDetail({
                 className="group animate-fade-up flex flex-col items-center rounded-2xl border border-line bg-card p-4"
                 style={{ animationDelay: '120ms' }}
               >
-                <p className="text-[13px] text-fg-dim">Your watch</p>
+                <span className="rounded-full border border-line bg-raised px-3 py-1 text-[12px] text-fg-dim">
+                  Your watch
+                </span>
                 <img
                   key={slide}
                   src={watchImage(lead.gallery[slide])}
