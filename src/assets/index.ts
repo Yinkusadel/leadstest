@@ -12,11 +12,7 @@
  *    import daytonaBlack from './watches/daytona-black.png'
  *    const WATCHES = { 'daytona-black': daytonaBlack, ... }
  */
-import {
-  avatarPlaceholder,
-  watchPlaceholder,
-  type MetalTone,
-} from './placeholders'
+import { watchPlaceholder, type MetalTone } from './placeholders'
 
 /** Keys referenced by `src/data/leads.ts` via `Lead.image`. */
 const WATCHES: Record<string, string> = {
@@ -33,11 +29,6 @@ const WATCHES: Record<string, string> = {
 /** Falls back to a neutral steel watch so an unknown key never renders broken. */
 export function watchImage(key: string): string {
   return WATCHES[key] ?? watchPlaceholder('#14161b', 'steel', 0)
-}
-
-/** Swap for real photos by mapping name → imported file. */
-export function avatar(name: string): string {
-  return avatarPlaceholder(name)
 }
 
 export function customWatch(dial: string, metal: MetalTone = 'steel'): string {

@@ -69,18 +69,3 @@ export function watchPlaceholder(
 </svg>`)
 }
 
-/** Circular avatar carrying the person's initials. */
-export function avatarPlaceholder(name: string): string {
-  const initials = name
-    .split(' ')
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
-  const hue = [...name].reduce((a, c) => a + c.charCodeAt(0), 0) % 360
-  return svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
-  <rect width="40" height="40" rx="20" fill="hsl(${hue} 45% 32%)"/>
-  <text x="20" y="26" font-family="Inter, system-ui, sans-serif" font-size="15"
-    font-weight="600" fill="#fff" text-anchor="middle">${initials}</text>
-</svg>`)
-}
