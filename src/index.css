@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Surfaces — darkest to lightest */
+  --color-canvas: #08080b;
+  --color-panel: #0e0e13;
+  --color-card: #131318;
+  --color-raised: #191920;
+  --color-line: #24242c;
+  --color-line-soft: #1b1b21;
+
+  /* Text */
+  --color-fg: #ececee;
+  --color-fg-dim: #a1a1aa;
+  --color-fg-mute: #6f6f7a;
+
+  /* Brand + status */
+  --color-brand: #7c5cff;
+  --color-brand-soft: #a78bfa;
+  --color-brand-deep: #4c2fd6;
+  --color-gold: #e0a144;
+  --color-wa: #25d366;
+
+  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --radius-card: 16px;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    min-height: 100svh;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  /* Horizontal carousels: scrollable, no visible scrollbar */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Thin scrollbar for the message/detail panes */
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+  .thin-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 999px;
+  }
+
+  /* Active sidebar tile, matching the supplied artwork: purple wash fill, a
+     gradient hairline border, and a glow on the glyph. */
+  .nav-tile-active {
+    position: relative;
+    background: linear-gradient(
+      90deg,
+      rgba(5, 8, 16, 0) 0%,
+      rgba(118, 41, 249, 0.2) 100%
+    );
+    color: #784bdb;
+  }
+  .nav-tile-active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      rgba(33, 33, 33, 0.14) 0%,
+      rgba(113, 33, 249, 0.02) 50%,
+      rgba(113, 33, 249, 0.64) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .nav-tile-active > svg {
+    filter: drop-shadow(0 4px 10px rgba(120, 75, 219, 0.55));
+  }
+
+  .clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
