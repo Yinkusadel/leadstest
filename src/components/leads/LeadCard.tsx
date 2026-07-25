@@ -23,8 +23,11 @@ export function LeadCard({
   index?: number
 }) {
   return (
+    /* `min-w-0` and `overflow-hidden` each zero out the grid item's automatic
+       minimum size, so the card follows the column width rather than its own
+       min-content — without them the un-shrinkable message row sets the floor. */
     <article
-      className="card-hover group animate-fade-up flex flex-col rounded-2xl border border-line bg-card p-3"
+      className="card-hover group animate-fade-up flex min-w-0 flex-col overflow-hidden rounded-2xl border border-line bg-card p-3"
       style={{ animationDelay: `${Math.min(index, 11) * 55}ms` }}
     >
       <p className="text-[10px] text-fg-mute">
@@ -67,7 +70,7 @@ export function LeadCard({
         <span className="truncate text-[12px] text-fg">{lead.sender.name}</span>
       </div>
 
-      <div className="mt-2 flex items-center gap-1.5">
+      <div className="mt-2 flex min-w-0 items-center gap-1.5">
         <Icon name="message" size={13} className="shrink-0 text-fg-mute" />
         <p className="min-w-0 flex-1 truncate text-[10px] text-fg-mute">
           {lead.message}
