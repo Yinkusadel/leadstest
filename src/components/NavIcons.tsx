@@ -1,9 +1,15 @@
+import { useSvgId } from '../lib/svgId'
+
 /**
  * Sidebar glyphs supplied as raw SVG by design.
  *
  * Each icon keeps its original artwork and viewBox. Inactive items render the
  * supplied white radial gradient; active items switch to `currentColor` so the
  * purple treatment on the active tile can drive them.
+ *
+ * Gradient ids are per-instance: the desktop sidebar stays mounted (`hidden` is
+ * `display:none`, not unmounted) while the mobile drawer renders the same icons,
+ * and hardcoded ids made the drawer's fills resolve into the hidden subtree.
  */
 type NavIconProps = {
   size?: number
@@ -45,7 +51,8 @@ function Wash({
 }
 
 export function HomeIcon({ size = 22, active }: NavIconProps) {
-  const f = active ? 'currentColor' : 'url(#navHome)'
+  const id = useSvgId('navHome')
+  const f = active ? 'currentColor' : `url(#${id})`
   return (
     <svg {...base(size, '0 0 36 36')}>
       <path
@@ -53,14 +60,15 @@ export function HomeIcon({ size = 22, active }: NavIconProps) {
         fill={f}
       />
       <defs>
-        <Wash id="navHome" transform="translate(11.0386 17.9568) scale(21.1667 22.2522)" />
+        <Wash id={id} transform="translate(11.0386 17.9568) scale(21.1667 22.2522)" />
       </defs>
     </svg>
   )
 }
 
 export function SellIcon({ size = 22, active }: NavIconProps) {
-  const f = active ? 'currentColor' : 'url(#navSell)'
+  const id = useSvgId('navSell')
+  const f = active ? 'currentColor' : `url(#${id})`
   return (
     <svg {...base(size, '0 0 14 16')}>
       <path
@@ -70,15 +78,16 @@ export function SellIcon({ size = 22, active }: NavIconProps) {
         fill={f}
       />
       <defs>
-        <Wash id="navSell" transform="translate(0.984605 7.66998) scale(17.9103 20.0822)" />
+        <Wash id={id} transform="translate(0.984605 7.66998) scale(17.9103 20.0822)" />
       </defs>
     </svg>
   )
 }
 
 export function ShopIcon({ size = 22, active }: NavIconProps) {
-  const a = active ? 'currentColor' : 'url(#navShopA)'
-  const b = active ? 'currentColor' : 'url(#navShopB)'
+  const id = useSvgId('navShop')
+  const a = active ? 'currentColor' : `url(#${id}a)`
+  const b = active ? 'currentColor' : `url(#${id}b)`
   return (
     <svg {...base(size, '0 0 20 20')}>
       <path
@@ -90,15 +99,16 @@ export function ShopIcon({ size = 22, active }: NavIconProps) {
         fill={b}
       />
       <defs>
-        <Wash id="navShopA" transform="translate(2.32588 5.40064) scale(23.3365 9.2286)" />
-        <Wash id="navShopB" transform="translate(3.39502 13.7148) scale(20.0823 11.4293)" />
+        <Wash id={`${id}a`} transform="translate(2.32588 5.40064) scale(23.3365 9.2286)" />
+        <Wash id={`${id}b`} transform="translate(3.39502 13.7148) scale(20.0823 11.4293)" />
       </defs>
     </svg>
   )
 }
 
 export function WishlistIcon({ size = 22, active }: NavIconProps) {
-  const f = active ? 'currentColor' : 'url(#navWish)'
+  const id = useSvgId('navWish')
+  const f = active ? 'currentColor' : `url(#${id})`
   return (
     <svg {...base(size, '0 0 20 20')}>
       <path
@@ -106,7 +116,7 @@ export function WishlistIcon({ size = 22, active }: NavIconProps) {
         fill={f}
       />
       <defs>
-        <Wash id="navWish" transform="translate(2.32399 9.95531) scale(23.3376)" />
+        <Wash id={id} transform="translate(2.32399 9.95531) scale(23.3376)" />
       </defs>
     </svg>
   )

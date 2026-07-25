@@ -1,9 +1,4 @@
-import { useId } from 'react'
-
-/** `useId` emits colons, which break `url(#…)` references in some engines. */
-function useSvgId(prefix: string) {
-  return `${prefix}${useId().replace(/:/g, '')}`
-}
+import { useSvgId } from '../lib/svgId'
 
 /** Union Jack, from the supplied SVG. */
 export function UKFlag({ size = 16 }: { size?: number }) {

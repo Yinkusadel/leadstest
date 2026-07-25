@@ -1,3 +1,5 @@
+import { useSvgId } from '../lib/svgId'
+
 /**
  * Workspace mark, from the supplied SVG.
  *
@@ -13,9 +15,13 @@
  * and replace the whole `<g clipPath>` block with
  *
  *     <image href={backdrop} width="36" height="36"
- *            preserveAspectRatio="xMidYMid slice" clipPath="url(#logoClip)" />
+ *            preserveAspectRatio="xMidYMid slice" clipPath={`url(#${id}clip)`} />
  */
 export function Logo({ size = 40 }: { size?: number }) {
+  // Rendered in both the desktop sidebar and the mobile drawer at once, so the
+  // ids must be per-instance or the second mount reuses the first's clip path.
+  const id = useSvgId('logo')
+
   return (
     <svg
       width={size}
@@ -27,13 +33,13 @@ export function Logo({ size = 40 }: { size?: number }) {
       focusable={false}
     >
       <defs>
-        <clipPath id="logoClip">
+        <clipPath id={`${id}clip`}>
           <rect width="36" height="36" rx="12" />
         </clipPath>
 
         {/* Cyan corner */}
         <radialGradient
-          id="lgCyan"
+          id={`${id}cyan`}
           cx="1"
           cy="1"
           r="17"
@@ -45,7 +51,7 @@ export function Logo({ size = 40 }: { size?: number }) {
 
         {/* Blue panel, upper right */}
         <radialGradient
-          id="lgBlue"
+          id={`${id}blue`}
           cx="24"
           cy="2"
           r="16"
@@ -57,7 +63,7 @@ export function Logo({ size = 40 }: { size?: number }) {
 
         {/* Pale violet, right edge */}
         <radialGradient
-          id="lgViolet"
+          id={`${id}violet`}
           cx="37"
           cy="11"
           r="17"
@@ -67,20 +73,8 @@ export function Logo({ size = 40 }: { size?: number }) {
           <stop offset="1" stopColor="#c9a7ff" stopOpacity="0" />
         </radialGradient>
 
-        {/* Saturated purple sweeping the lower half */}
         <radialGradient
-          id="lgPurple"
-          cx="28"
-          cy="35"
-          r="21"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#a855f7" />
-          <stop offset="1" stopColor="#a855f7" stopOpacity="0" />
-        </radialGradient>
-
-        <radialGradient
-          id="lgIndigo"
+          id={`${id}indigo`}
           cx="4"
           cy="30"
           r="18"
@@ -90,18 +84,32 @@ export function Logo({ size = 40 }: { size?: number }) {
           <stop offset="1" stopColor="#7c3aed" stopOpacity="0" />
         </radialGradient>
 
-        <filter id="lgSoft" x="-40%" y="-40%" width="180%" height="180%">
+        {/* Saturated purple sweeping the lower half */}
+        <radialGradient
+          id={`${id}purple`}
+          cx="28"
+          cy="35"
+          r="21"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#a855f7" />
+          <stop offset="1" stopColor="#a855f7" stopOpacity="0" />
+        </radialGradient>
+
+        <filter id={`${id}soft`} x="-40%" y="-40%" width="180%" height="180%">
           <feGaussianBlur stdDeviation="0.7" />
         </filter>
       </defs>
 
-      <g clipPath="url(#logoClip)">
-        <rect width="36" height="36" fill="#6d3ff0" />
-        <rect width="36" height="36" fill="url(#lgCyan)" />
-        <rect width="36" height="36" fill="url(#lgBlue)" />
-        <rect width="36" height="36" fill="url(#lgViolet)" />
-        <rect width="36" height="36" fill="url(#lgIndigo)" />
-        <rect width="36" height="36" fill="url(#lgPurple)" />
+      <g clipPath={`url(#${id}clip)`}>
+        {/* `rx` repeated on the fills so the mark stays rounded even if the clip
+            reference ever fails to resolve. */}
+        <rect width="36" height="36" rx="12" fill="#6d3ff0" />
+        <rect width="36" height="36" rx="12" fill={`url(#${id}cyan)`} />
+        <rect width="36" height="36" rx="12" fill={`url(#${id}blue)`} />
+        <rect width="36" height="36" rx="12" fill={`url(#${id}violet)`} />
+        <rect width="36" height="36" rx="12" fill={`url(#${id}indigo)`} />
+        <rect width="36" height="36" rx="12" fill={`url(#${id}purple)`} />
 
         {/* The dark Y-shaped crease where the two surfaces meet */}
         <path
@@ -110,7 +118,7 @@ export function Logo({ size = 40 }: { size?: number }) {
           strokeWidth="2.4"
           strokeOpacity="0.85"
           fill="none"
-          filter="url(#lgSoft)"
+          filter={`url(#${id}soft)`}
         />
         <path
           d="M15 22C22 19.5 28.5 13 40 4"
@@ -118,7 +126,7 @@ export function Logo({ size = 40 }: { size?: number }) {
           strokeWidth="2"
           strokeOpacity="0.7"
           fill="none"
-          filter="url(#lgSoft)"
+          filter={`url(#${id}soft)`}
         />
       </g>
 
