@@ -9,10 +9,17 @@ import { Icon, type IconName } from './Icon'
 
 /* ─────────────────────────── Segmented tabs ─────────────────────────── */
 
+/** A supplied SVG glyph, as opposed to one of the built-in stroke icons. */
+export type TabGlyph = (props: {
+  size?: number
+  active?: boolean
+}) => React.ReactElement
+
 export type Segment<T extends string> = {
   value: T
   label: string
-  icon?: IconName
+  /** Built-in stroke icon by name, or a custom glyph component. */
+  icon?: IconName | TabGlyph
 }
 
 export function SegmentedTabs<T extends string>({
@@ -41,13 +48,30 @@ export function SegmentedTabs<T extends string>({
             type="button"
             aria-selected={active}
             onClick={() => onChange(s.value)}
-            className={`flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-medium transition-colors ${
+            className={`flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-medium ${
               active
-                ? 'border-line bg-raised text-fg'
+                ? 'border-line bg-raised text-fg shadow-[0_2px_12px_-4px_rgba(0,0,0,0.8)]'
                 : 'border-transparent text-fg-mute hover:bg-card hover:text-fg-dim'
             }`}
           >
-            {s.icon && <Icon name={s.icon} size={15} />}
+            {s.icon &&
+              (typeof s.icon === 'string' ? (
+                <Icon
+                  name={s.icon}
+                  size={15}
+                  className={`transition-transform duration-300 ease-back ${
+                    active ? 'scale-110' : 'scale-100'
+                  }`}
+                />
+              ) : (
+                <span
+                  className={`grid shrink-0 place-items-center transition-transform duration-300 ease-back ${
+                    active ? 'scale-110' : 'scale-100'
+                  }`}
+                >
+                  <s.icon size={16} active={active} />
+                </span>
+              ))}
             {s.label}
           </button>
         )
@@ -73,20 +97,26 @@ export function Toggle({
       role="switch"
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className={`flex shrink-0 items-center gap-2.5 rounded-full border py-1.5 pr-3.5 pl-1.5 text-[13px] font-medium transition-colors ${
+      className={`flex shrink-0 items-center gap-2.5 rounded-full border py-1.5 pr-3.5 pl-1.5 text-[13px] font-medium ${
         checked
-          ? 'border-brand/50 bg-brand/15 text-fg'
+          ? 'border-brand/50 bg-brand/15 text-fg shadow-[0_0_20px_-6px_rgba(124,92,255,0.9)]'
           : 'border-line bg-card text-fg-mute hover:text-fg-dim'
       }`}
     >
       <span
-        className={`relative h-[18px] w-[18px] rounded-full transition-colors ${
-          checked ? 'bg-brand' : 'bg-line'
+        className={`relative h-[18px] w-[18px] rounded-full transition-all duration-300 ease-back ${
+          checked ? 'scale-110 bg-brand' : 'scale-100 bg-line'
         }`}
       >
+        {/* Pulse ring that expands out of the knob when switched on */}
         <span
-          className={`absolute top-1/2 left-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors ${
-            checked ? 'bg-white' : 'bg-fg-mute'
+          className={`absolute inset-0 rounded-full transition-all duration-500 ease-soft ${
+            checked ? 'scale-[1.9] bg-brand/0 shadow-[0_0_0_2px_rgba(124,92,255,0.35)]' : 'scale-100'
+          }`}
+        />
+        <span
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300 ease-back ${
+            checked ? 'h-2 w-2 bg-white' : 'h-1.5 w-1.5 bg-fg-mute'
           }`}
         />
       </span>
@@ -172,8 +202,8 @@ export function Select({
         <ul
           id={id}
           role="listbox"
-          className={`absolute top-[calc(100%+4px)] z-30 max-h-56 min-w-[10rem] overflow-y-auto rounded-xl border border-line bg-raised p-1 shadow-2xl shadow-black/60 thin-scrollbar ${
-            align === 'right' ? 'right-0' : 'left-0'
+          className={`animate-pop thin-scrollbar absolute top-[calc(100%+4px)] z-30 max-h-56 min-w-40 overflow-y-auto rounded-xl border border-line bg-raised p-1 shadow-2xl shadow-black/60 ${
+            align === 'right' ? 'right-0 origin-top-right' : 'left-0 origin-top-left'
           }`}
         >
           {options.map((o) => (
@@ -260,7 +290,7 @@ export function IconButton({
       disabled={disabled}
       aria-label={label}
       title={label}
-      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-card text-fg-dim transition-colors hover:text-fg disabled:opacity-35 disabled:hover:text-fg-dim ${className}`}
+      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-card text-fg-dim hover:scale-110 hover:border-brand/50 hover:text-fg disabled:opacity-35 disabled:hover:scale-100 disabled:hover:border-line disabled:hover:text-fg-dim ${className}`}
     >
       <Icon name={icon} size={size} />
     </button>
@@ -305,7 +335,7 @@ export function FilterMenu({
       </button>
 
       {open && (
-        <div className="absolute top-[calc(100%+8px)] right-0 z-40 w-64 rounded-2xl border border-line bg-raised p-3 shadow-2xl shadow-black/60">
+        <div className="animate-pop absolute top-[calc(100%+8px)] right-0 z-40 w-64 origin-top-right rounded-2xl border border-line bg-raised p-3 shadow-2xl shadow-black/60">
           {groups.map((g) => (
             <div key={g.label} className="mb-3 last:mb-0">
               <p className="mb-1.5 text-[11px] tracking-wide text-fg-mute uppercase">

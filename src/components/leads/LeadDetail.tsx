@@ -40,7 +40,7 @@ function DetectedSpecs({
   onChange: (next: WatchSpec) => void
 }) {
   return (
-    <div className="rounded-2xl border border-line bg-card p-4">
+    <div className="animate-fade-up rounded-2xl border border-line bg-card p-4">
       <CardHead lead={lead} />
       <div className="mt-2">
         {SPEC_LABELS.map(({ key, label }) => {
@@ -89,7 +89,10 @@ function DetectedSpecs({
 /** Read-only mirror of the same fields, taken from your own stock record. */
 function YourSpecs({ lead }: { lead: Lead }) {
   return (
-    <div className="rounded-2xl border border-line bg-card p-4">
+    <div
+      className="animate-fade-up rounded-2xl border border-line bg-card p-4"
+      style={{ animationDelay: '80ms' }}
+    >
       <CardHead lead={lead} />
       <div className="mt-2">
         {SPEC_LABELS.map(({ key, label }) => (
@@ -143,22 +146,29 @@ export function LeadDetail({
             </div>
 
             <div className="space-y-4">
-              <div className="flex flex-col items-center rounded-2xl border border-line bg-card p-4">
+              <div
+                className="group animate-fade-up flex flex-col items-center rounded-2xl border border-line bg-card p-4"
+                style={{ animationDelay: '40ms' }}
+              >
                 <p className="text-[13px] text-fg-dim">Detected from group</p>
                 <img
                   src={watchImage(lead.image)}
                   alt={`${lead.title} as detected in the group message`}
-                  className="my-3 h-48 w-auto object-contain sm:h-56"
+                  className="my-3 h-48 w-auto object-contain transition-transform duration-500 ease-soft group-hover:scale-105 sm:h-56"
                 />
                 <MatchGauge value={lead.matchPercent} />
               </div>
 
-              <div className="flex flex-col items-center rounded-2xl border border-line bg-card p-4">
+              <div
+                className="group animate-fade-up flex flex-col items-center rounded-2xl border border-line bg-card p-4"
+                style={{ animationDelay: '120ms' }}
+              >
                 <p className="text-[13px] text-fg-dim">Your watch</p>
                 <img
+                  key={slide}
                   src={watchImage(lead.gallery[slide])}
                   alt={`Your ${lead.title}, image ${slide + 1} of ${total}`}
-                  className="my-3 h-48 w-auto object-contain sm:h-56"
+                  className="animate-pop my-3 h-48 w-auto object-contain transition-transform duration-500 ease-soft group-hover:scale-105 sm:h-56"
                 />
                 <div className="flex items-center gap-4">
                   <IconButton
@@ -183,18 +193,21 @@ export function LeadDetail({
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div
+            className="animate-fade-up flex flex-col gap-3 sm:flex-row sm:items-center"
+            style={{ animationDelay: '180ms' }}
+          >
             <button
               type="button"
               onClick={() => onDecision(lead, 'reject')}
-              className="rounded-full border border-line bg-card px-6 py-3 text-[13px] font-medium text-fg-dim transition-colors hover:text-fg sm:w-[38%]"
+              className="rounded-full border border-line bg-card px-6 py-3 text-[13px] font-medium text-fg-dim hover:border-fg-mute hover:text-fg sm:w-[38%]"
             >
               Not this time...
             </button>
             <button
               type="button"
               onClick={() => onDecision(lead, 'match')}
-              className="flex-1 rounded-full bg-white px-6 py-3 text-[13px] font-semibold text-black transition-opacity hover:opacity-90"
+              className="flex-1 rounded-full bg-white px-6 py-3 text-[13px] font-semibold text-black hover:shadow-[0_10px_30px_-8px_rgba(255,255,255,0.55)]"
             >
               It's a Match
             </button>
@@ -211,10 +224,11 @@ export function LeadDetail({
           </SparkleHeading>
         }
       >
-        {similar.map((s) => (
+        {similar.map((s, i) => (
           <article
             key={s.id}
-            className="flex w-52.5 shrink-0 snap-start flex-col rounded-2xl border border-line bg-card p-3.5 sm:w-60"
+            className="card-hover group animate-fade-up flex w-52.5 shrink-0 snap-start flex-col rounded-2xl border border-line bg-card p-3.5 sm:w-60"
+            style={{ animationDelay: `${i * 60}ms` }}
           >
             <div className="flex items-baseline justify-between gap-2 text-[11px] text-fg-mute">
               <span className="truncate">
@@ -222,21 +236,27 @@ export function LeadDetail({
               </span>
               <span>{s.releaseYear}</span>
             </div>
-            <h3 className="mt-1 truncate text-sm font-semibold text-fg">{s.title}</h3>
-            <div className="relative mt-3 grid place-items-center">
+            <h3 className="mt-1 truncate text-sm font-semibold text-fg transition-colors group-hover:text-white">
+              {s.title}
+            </h3>
+            <div className="relative mt-3 grid place-items-center overflow-hidden rounded-xl">
               <img
                 src={watchImage(s.image)}
                 alt={`${s.brand} ${s.title}`}
                 loading="lazy"
-                className="h-36 w-auto object-contain"
+                className="h-36 w-auto object-contain transition-transform duration-500 ease-soft group-hover:scale-110"
               />
               <button
                 type="button"
                 onClick={() => onOpen(s)}
                 aria-label={`Open ${s.title}`}
-                className="absolute top-0 right-0 grid h-7 w-7 place-items-center rounded-full border border-line bg-raised text-fg-dim transition-colors hover:border-brand/60 hover:text-fg"
+                className="absolute top-0 right-0 grid h-7 w-7 place-items-center rounded-full border border-line bg-raised text-fg-dim hover:border-brand/60 hover:bg-brand/20 hover:text-fg"
               >
-                <Icon name="chevronRight" size={13} />
+                <Icon
+                  name="chevronRight"
+                  size={13}
+                  className="transition-transform duration-300 ease-soft group-hover:translate-x-0.5"
+                />
               </button>
             </div>
           </article>

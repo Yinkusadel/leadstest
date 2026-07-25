@@ -1,5 +1,5 @@
-import { logo } from '../../assets'
 import { Icon } from '../Icon'
+import { Logo } from '../Logo'
 import {
   HomeIcon,
   ListingsIcon,
@@ -54,8 +54,10 @@ function NavButton({
       } ${active ? 'text-brand-soft' : 'text-fg-mute hover:text-fg-dim'}`}
     >
       <span
-        className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-colors ${
-          active ? 'nav-tile-active' : 'opacity-60 group-hover:bg-white/5 group-hover:opacity-100'
+        className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-all duration-300 ease-back group-hover:scale-110 ${
+          active
+            ? 'nav-tile-active scale-105'
+            : 'opacity-60 group-hover:bg-white/5 group-hover:opacity-100'
         }`}
       >
         <Glyph size={22} active={active} />
@@ -83,7 +85,9 @@ export function Sidebar({
       aria-label="Main"
       className="no-scrollbar sticky top-0 hidden h-svh shrink-0 flex-col items-center gap-1 overflow-y-auto border-r border-line-soft bg-panel px-2.5 py-4 lg:flex lg:w-[84px]"
     >
-      <img src={logo} alt="Workspace logo" className="mb-4 h-10 w-10 rounded-xl" />
+      <div className="mb-4 transition-transform duration-300 ease-back hover:scale-110">
+        <Logo size={40} />
+      </div>
       {NAV.map((item) => (
         <NavButton
           key={item.id}
@@ -116,14 +120,14 @@ export function SidebarDrawer({
         type="button"
         aria-label="Close navigation"
         onClick={onClose}
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="animate-fade-in absolute inset-0 bg-black/70 backdrop-blur-sm active:scale-100"
       />
       <nav
         aria-label="Main"
-        className="thin-scrollbar absolute inset-y-0 left-0 flex w-64 max-w-[80vw] flex-col gap-1 overflow-y-auto border-r border-line bg-panel p-3"
+        className="animate-slide-in-left thin-scrollbar absolute inset-y-0 left-0 flex w-64 max-w-[80vw] flex-col gap-1 overflow-y-auto border-r border-line bg-panel p-3"
       >
         <div className="mb-3 flex items-center justify-between">
-          <img src={logo} alt="Workspace logo" className="h-10 w-10 rounded-xl" />
+          <Logo size={40} />
           <button
             type="button"
             onClick={onClose}

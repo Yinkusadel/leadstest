@@ -69,20 +69,6 @@ export function watchPlaceholder(
 </svg>`)
 }
 
-/** Square lettermark used wherever the brand logo goes. */
-export function logoPlaceholder(letter = 'C'): string {
-  return svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <defs>
-    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#8b6cff"/><stop offset="1" stop-color="#4c2fd6"/>
-    </linearGradient>
-  </defs>
-  <rect width="48" height="48" rx="14" fill="url(#lg)"/>
-  <text x="24" y="32" font-family="Inter, system-ui, sans-serif" font-size="24"
-    font-weight="700" fill="#fff" text-anchor="middle">${letter}</text>
-</svg>`)
-}
-
 /** Circular avatar carrying the person's initials. */
 export function avatarPlaceholder(name: string): string {
   const initials = name

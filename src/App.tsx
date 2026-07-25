@@ -21,7 +21,7 @@ export default function App() {
         <TopBar onOpenNav={() => setNavOpen(true)} />
         <main className="flex-1">
           {section === 'leads' ? (
-            <LeadsPage />
+            <LeadsPage onExit={() => setSection('home')} />
           ) : (
             <div className="grid min-h-[60vh] place-items-center px-6 text-center">
               <div>

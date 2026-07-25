@@ -14,12 +14,9 @@
  */
 import {
   avatarPlaceholder,
-  logoPlaceholder,
   watchPlaceholder,
   type MetalTone,
 } from './placeholders'
-
-export const logo = logoPlaceholder('C')
 
 /** Keys referenced by `src/data/leads.ts` via `Lead.image`. */
 const WATCHES: Record<string, string> = {

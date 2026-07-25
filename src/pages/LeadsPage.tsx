@@ -10,12 +10,13 @@ import {
   Toggle,
   type Segment,
 } from '../components/ui'
+import { InStockIcon } from '../components/TabIcons'
 import { FILTER_GROUPS, LEADS, type Lead } from '../data/leads'
 
 type BucketTab = 'in-stock' | 'consignment' | 'all'
 
 const TABS: Segment<BucketTab>[] = [
-  { value: 'in-stock', label: 'In Stock', icon: 'stock' },
+  { value: 'in-stock', label: 'In Stock', icon: InStockIcon },
   { value: 'consignment', label: 'In Consignment', icon: 'orders' },
   { value: 'all', label: 'All Leads', icon: 'listings' },
 ]
@@ -35,7 +36,12 @@ const MATCH_RANGES: Record<string, (p: number) => boolean> = {
 const BRANDS = FILTER_GROUPS[0].options
 const CONDITIONS = FILTER_GROUPS[1].options
 
-export function LeadsPage() {
+export function LeadsPage({
+  /** Called when Back is pressed with no lead open — leaves the Leads section. */
+  onExit,
+}: {
+  onExit?: () => void
+}) {
   const [tab, setTab] = useState<BucketTab>('in-stock')
   const [query, setQuery] = useState('')
   const [smartMatch, setSmartMatch] = useState(true)
@@ -87,12 +93,11 @@ export function LeadsPage() {
       <div className="flex items-start gap-3">
         <button
           type="button"
-          onClick={() => setSelected(null)}
-          disabled={!selected}
-          aria-label="Back to leads list"
-          className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-line bg-card text-fg-dim transition-colors hover:text-fg disabled:opacity-35 disabled:hover:text-fg-dim"
+          onClick={() => (selected ? setSelected(null) : onExit?.())}
+          aria-label={selected ? 'Back to leads list' : 'Back'}
+          className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-raised text-fg hover:border-brand/50 hover:bg-brand/15"
         >
-          <Icon name="chevronLeft" size={15} />
+          <Icon name="chevronLeft" size={16} />
         </button>
         <div className="min-w-0">
           <h1 className="text-lg font-semibold tracking-tight text-fg sm:text-xl">
@@ -139,7 +144,11 @@ export function LeadsPage() {
         </div>
       </div>
 
-      <div className="mt-6">
+      {/* Keyed so switching view replays the entrance animation */}
+      <div
+        key={selected ? `detail-${selected.id}` : smartMatch ? 'smart' : 'list'}
+        className="animate-fade-up mt-6"
+      >
         {selected ? (
           <LeadDetail
             key={selected.id}
@@ -158,12 +167,12 @@ export function LeadsPage() {
             </p>
             {leads.length ? (
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                {leads.map((lead) => (
-                  <LeadCard key={lead.id} lead={lead} onOpen={open} />
+                {leads.map((lead, i) => (
+                  <LeadCard key={lead.id} index={i} lead={lead} onOpen={open} />
                 ))}
               </div>
             ) : (
-              <div className="rounded-2xl border border-dashed border-line py-16 text-center">
+              <div className="animate-pop rounded-2xl border border-dashed border-line py-16 text-center">
                 <p className="text-sm text-fg-dim">No leads match those filters.</p>
                 <button
                   type="button"
@@ -184,7 +193,7 @@ export function LeadsPage() {
       {toast && (
         <div
           role="status"
-          className="fixed inset-x-4 bottom-5 z-50 mx-auto w-fit max-w-[92vw] rounded-full border border-line bg-raised px-5 py-2.5 text-center text-[13px] text-fg shadow-2xl shadow-black/60"
+          className="animate-rise fixed inset-x-4 bottom-5 z-50 mx-auto w-fit max-w-[92vw] rounded-full border border-brand/40 bg-raised px-5 py-2.5 text-center text-[13px] text-fg shadow-[0_10px_40px_-10px_rgba(124,92,255,0.6)]"
         >
           {toast}
         </div>

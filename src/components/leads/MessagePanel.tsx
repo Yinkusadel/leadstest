@@ -63,7 +63,10 @@ export function MessagePanel({
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-line bg-card p-4">
+    <div
+      className="animate-fade-up flex flex-col gap-4 rounded-2xl border border-line bg-card p-4"
+      style={{ animationDelay: '100ms' }}
+    >
       <SegmentedTabs
         label="Message view"
         value={tab}
@@ -79,6 +82,8 @@ export function MessagePanel({
         <Party icon="users" name={lead.sender.company} role="Sender" />
       </div>
 
+      {/* Keyed so each tab switch replays the fade */}
+      <div key={tab} className="animate-fade-in flex flex-col gap-4">
       {tab === 'original' ? (
         <>
           <div>
@@ -155,13 +160,18 @@ export function MessagePanel({
           <button
             type="button"
             onClick={() => onSend(draft)}
-            className="flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black transition-opacity hover:opacity-90"
+            className="group flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black hover:shadow-[0_10px_30px_-8px_rgba(37,211,102,0.7)]"
           >
-            <Icon name="whatsapp" size={16} className="text-wa" />
+            <Icon
+              name="whatsapp"
+              size={16}
+              className="text-wa transition-transform duration-300 ease-back group-hover:scale-125"
+            />
             Send
           </button>
         </>
       )}
+      </div>
     </div>
   )
 }
