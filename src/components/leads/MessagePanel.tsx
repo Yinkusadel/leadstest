@@ -97,7 +97,7 @@ export function MessagePanel({
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
+          <div className="layout-anim grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
             {DETAIL_FIELDS.map(({ key, label }) => (
               <div key={key} className="min-w-0">
                 <p className="mb-1 text-[11px] text-fg-mute">{label}</p>

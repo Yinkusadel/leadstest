@@ -88,7 +88,7 @@ export function LeadsPage({
   }
 
   return (
-    <div className="mx-auto w-full max-w-375 px-4 py-5 sm:px-6 lg:py-6">
+    <div className="layout-anim mx-auto w-full max-w-375 px-4 py-5 sm:px-6 lg:py-6">
       {/* Page header */}
       <div className="flex items-start gap-3">
         <button
@@ -100,7 +100,7 @@ export function LeadsPage({
           <Icon name="chevronLeft" size={16} />
         </button>
         <div className="min-w-0">
-          <h1 className="text-lg font-semibold tracking-tight text-fg sm:text-xl">
+          <h1 className="layout-anim text-lg font-semibold tracking-tight text-fg sm:text-xl">
             {TAB_TITLES[tab]}
           </h1>
           <p className="mt-0.5 text-[11px] text-fg-mute sm:text-xs">
@@ -166,7 +166,7 @@ export function LeadsPage({
               {leads.length} {leads.length === 1 ? 'Listing' : 'Listings'} found
             </p>
             {leads.length ? (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+              <div className="layout-anim grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                 {leads.map((lead, i) => (
                   <LeadCard key={lead.id} index={i} lead={lead} onOpen={open} />
                 ))}

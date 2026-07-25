@@ -137,9 +137,9 @@ export function LeadDetail({
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-4 xl:grid-cols-[1.9fr_1.1fr]">
+      <div className="layout-anim grid grid-cols-1 gap-4 xl:grid-cols-[1.9fr_1.1fr]">
         <div className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="layout-anim grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-4">
               <DetectedSpecs lead={lead} spec={spec} onChange={setSpec} />
               <YourSpecs lead={lead} />
@@ -156,7 +156,7 @@ export function LeadDetail({
                 <img
                   src={watchImage(lead.image)}
                   alt={`${lead.title} as detected in the group message`}
-                  className="my-3 h-48 w-auto object-contain transition-transform duration-500 ease-soft group-hover:scale-105 sm:h-56"
+                  className="my-3 h-48 w-auto object-contain transition-[transform,height] duration-500 ease-soft group-hover:scale-105 sm:h-56"
                 />
                 <MatchGauge value={lead.matchPercent} />
               </div>
@@ -172,7 +172,7 @@ export function LeadDetail({
                   key={slide}
                   src={watchImage(lead.gallery[slide])}
                   alt={`Your ${lead.title}, image ${slide + 1} of ${total}`}
-                  className="animate-pop my-3 h-48 w-auto object-contain transition-transform duration-500 ease-soft group-hover:scale-105 sm:h-56"
+                  className="animate-pop my-3 h-48 w-auto object-contain transition-[transform,height] duration-500 ease-soft group-hover:scale-105 sm:h-56"
                 />
                 <div className="flex items-center gap-4">
                   <IconButton

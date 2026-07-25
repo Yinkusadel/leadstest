@@ -135,12 +135,31 @@
     animation: slide-in-left 280ms var(--ease-soft) both;
   }
 
-  /* Lift-on-hover shared by every clickable card. */
+  /* Eases the reflow when a breakpoint flips, so resizing the window settles
+     instead of snapping. Layout properties only — `flex-direction` and
+     `display` can't be interpolated, so those still switch instantly. */
+  .layout-anim {
+    transition:
+      grid-template-columns 380ms var(--ease-soft),
+      grid-template-rows 380ms var(--ease-soft),
+      gap 380ms var(--ease-soft),
+      padding 380ms var(--ease-soft),
+      margin 380ms var(--ease-soft),
+      width 380ms var(--ease-soft),
+      max-width 380ms var(--ease-soft),
+      height 380ms var(--ease-soft),
+      font-size 260ms var(--ease-soft);
+  }
+
+  /* Lift-on-hover shared by every clickable card. Carries the layout
+     properties too, since a second `transition` utility would override this. */
   .card-hover {
     transition:
       transform 320ms var(--ease-soft),
       border-color 320ms ease,
-      box-shadow 320ms ease;
+      box-shadow 320ms ease,
+      padding 380ms var(--ease-soft),
+      width 380ms var(--ease-soft);
     will-change: transform;
   }
   .card-hover:hover {
