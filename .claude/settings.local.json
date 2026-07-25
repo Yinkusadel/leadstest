@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/HP/.claude/projects/c--Users-HP-Documents-My-projects-leadstest//**)",
+      "Read(//c/Users/HP/.claude/projects/c--Users-HP-Documents-My-projects-leadstest/memory//**)",
+      "mcp__figma__get_metadata",
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_screenshot",
+      "mcp__figma__get_variable_defs",
+      "Bash(mkdir -p /tmp/figma-shots)",
+      "Bash(curl -sL -o /tmp/figma-shots/n430-9389.png \"https://www.figma.com/api/mcp/asset/b244218d-7793-44fd-b986-31209539f453\")",
+      "Read(//tmp/**)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

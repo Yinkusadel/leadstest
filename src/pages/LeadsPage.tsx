@@ -90,20 +90,20 @@ export function LeadsPage({
   return (
     <div className="layout-anim mx-auto w-full max-w-375 px-4 py-5 sm:px-6 lg:py-6">
       {/* Page header */}
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-4">
         <button
           type="button"
           onClick={() => (selected ? setSelected(null) : onExit?.())}
           aria-label={selected ? 'Back to leads list' : 'Back'}
-          className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line bg-raised text-fg hover:border-brand/50 hover:bg-brand/15"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-full border-[0.5px] border-white/15 bg-card text-fg hover:border-brand/50 hover:bg-brand/15"
         >
           <Icon name="chevronLeft" size={16} />
         </button>
-        <div className="min-w-0">
-          <h1 className="layout-anim text-lg font-semibold tracking-tight text-fg sm:text-xl">
+        <div className="min-w-0 flex-1">
+          <h1 className="layout-anim text-[18px] leading-tight font-medium tracking-tight text-fg">
             {TAB_TITLES[tab]}
           </h1>
-          <p className="mt-0.5 text-[11px] text-fg-mute sm:text-xs">
+          <p className="mt-1.5 text-[12px] leading-snug text-fg-mute">
             Leads that match your inventory (potential sale) / Auto-matched leads with
             your inventory.
           </p>

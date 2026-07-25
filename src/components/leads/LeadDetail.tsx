@@ -16,13 +16,14 @@ import { MessagePanel } from './MessagePanel'
 function CardHead({ lead }: { lead: Lead }) {
   return (
     <>
-      <div className="flex items-baseline justify-between gap-3 text-[11px] text-fg-mute">
-        <span className="truncate">
-          {lead.brand} <span className="px-1">•</span> {lead.ref}
-        </span>
+      <div className="flex items-center gap-1.5 text-[12px] text-fg-mute">
+        <span className="truncate">{lead.ref}</span>
+        <span className="h-1 w-1 rounded-full bg-fg-mute" />
+        <span className="truncate">{lead.brand}</span>
+        <span className="h-1 w-1 rounded-full bg-fg-mute" />
         <span>{lead.releaseYear}</span>
       </div>
-      <h3 className="mt-1 text-[17px] font-semibold tracking-tight text-fg">
+      <h3 className="mt-2.5 text-[18px] font-medium tracking-tight text-fg">
         {lead.title}
       </h3>
     </>
@@ -40,7 +41,7 @@ function DetectedSpecs({
   onChange: (next: WatchSpec) => void
 }) {
   return (
-    <div className="animate-fade-up rounded-2xl border border-line bg-card p-4">
+    <div className="animate-fade-up rounded-[24px] border border-line bg-card p-4">
       <CardHead lead={lead} />
       <div className="mt-2">
         {SPEC_LABELS.map(({ key, label }) => {
@@ -90,7 +91,7 @@ function DetectedSpecs({
 function YourSpecs({ lead }: { lead: Lead }) {
   return (
     <div
-      className="animate-fade-up rounded-2xl border border-line bg-card p-4"
+      className="animate-fade-up rounded-[24px] border border-line bg-card p-4"
       style={{ animationDelay: '80ms' }}
     >
       <CardHead lead={lead} />
@@ -147,7 +148,7 @@ export function LeadDetail({
 
             <div className="space-y-4">
               <div
-                className="group animate-fade-up flex flex-col items-center overflow-hidden rounded-2xl border border-line bg-card p-4"
+                className="group animate-fade-up flex flex-col items-center overflow-hidden rounded-[24px] border border-line bg-card p-4"
                 style={{ animationDelay: '40ms' }}
               >
                 <span className="rounded-full border border-line bg-raised px-3 py-1 text-[12px] text-fg-dim">
@@ -162,7 +163,7 @@ export function LeadDetail({
               </div>
 
               <div
-                className="group animate-fade-up flex flex-col items-center rounded-2xl border border-line bg-card p-4"
+                className="group animate-fade-up flex flex-col items-center rounded-[24px] border border-line bg-card p-4"
                 style={{ animationDelay: '120ms' }}
               >
                 <span className="rounded-full border border-line bg-raised px-3 py-1 text-[12px] text-fg-dim">
@@ -204,14 +205,14 @@ export function LeadDetail({
             <button
               type="button"
               onClick={() => onDecision(lead, 'reject')}
-              className="rounded-full border border-line bg-card px-6 py-3 text-[13px] font-medium text-fg-dim hover:border-fg-mute hover:text-fg sm:w-[38%]"
+              className="rounded-full border-[0.5px] border-white/15 bg-card px-6 py-3 text-[12px] font-medium text-fg-dim hover:border-fg-mute hover:text-fg sm:w-[38%]"
             >
               Not this time...
             </button>
             <button
               type="button"
               onClick={() => onDecision(lead, 'match')}
-              className="flex-1 rounded-full bg-white px-6 py-3 text-[13px] font-semibold text-black hover:shadow-[0_10px_30px_-8px_rgba(255,255,255,0.55)]"
+              className="flex-1 rounded-full bg-white px-6 py-3 text-[12px] font-medium text-[#212121] hover:shadow-[0_10px_30px_-8px_rgba(255,255,255,0.55)]"
             >
               It's a Match
             </button>

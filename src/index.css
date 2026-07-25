@@ -1,18 +1,19 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Surfaces — darkest to lightest */
-  --color-canvas: #08080b;
-  --color-panel: #0e0e13;
-  --color-card: #131318;
-  --color-raised: #191920;
-  --color-line: #24242c;
-  --color-line-soft: #1b1b21;
+  /* Surfaces — matched to Figma tokens */
+  --color-canvas: #141414;
+  --color-panel: #141414;
+  --color-card: #1a1a1a;
+  --color-raised: #212121;
+  --color-line: #242424;
+  --color-line-soft: #242424;
+  --color-line-strong: #303030;
 
   /* Text */
-  --color-fg: #ececee;
-  --color-fg-dim: #a1a1aa;
-  --color-fg-mute: #6f6f7a;
+  --color-fg: #ffffff;
+  --color-fg-dim: #b7b7b7;
+  --color-fg-mute: #797979;
 
   /* Brand + status */
   --color-brand: #7c5cff;
@@ -21,9 +22,10 @@
   --color-gold: #e0a144;
   --color-wa: #25d366;
 
-  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-sans:
+    'Helvetica Now Display', 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
 
-  --radius-card: 16px;
+  --radius-card: 24px;
 
   /* Decelerating curve used for every entrance and hover lift. */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);

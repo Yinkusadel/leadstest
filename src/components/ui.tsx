@@ -37,7 +37,7 @@ export function SegmentedTabs<T extends string>({
     <div
       role="tablist"
       aria-label={label}
-      className="no-scrollbar flex items-center gap-1.5 overflow-x-auto"
+      className="no-scrollbar inline-flex items-center gap-0 overflow-x-auto rounded-2xl bg-card p-0.5"
     >
       {segments.map((s) => {
         const active = s.value === value
@@ -48,17 +48,17 @@ export function SegmentedTabs<T extends string>({
             type="button"
             aria-selected={active}
             onClick={() => onChange(s.value)}
-            className={`flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-medium ${
+            className={`flex shrink-0 items-center gap-2 rounded-[18px] px-3 py-2.5 font-medium ${
               active
-                ? 'border-line bg-raised text-fg shadow-[0_2px_12px_-4px_rgba(0,0,0,0.8)]'
-                : 'border-transparent text-fg-mute hover:bg-card hover:text-fg-dim'
+                ? 'border border-[rgba(113,33,249,0.35)] bg-gradient-to-r from-transparent to-brand/12 text-[14px] text-fg shadow-[0_2px_12px_-4px_rgba(124,92,255,0.5)]'
+                : 'border border-transparent text-[12px] text-fg-dim hover:text-fg'
             }`}
           >
             {s.icon &&
               (typeof s.icon === 'string' ? (
                 <Icon
                   name={s.icon}
-                  size={15}
+                  size={16}
                   className={`transition-transform duration-300 ease-back ${
                     active ? 'scale-110' : 'scale-100'
                   }`}
@@ -97,26 +97,21 @@ export function Toggle({
       role="switch"
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className={`flex shrink-0 items-center gap-2.5 rounded-full border py-1.5 pr-3.5 pl-1.5 text-[13px] font-medium ${
+      className={`flex shrink-0 items-center gap-2 rounded-full border-[0.5px] px-3 py-2.5 text-[12px] font-medium text-fg ${
         checked
-          ? 'border-brand/50 bg-brand/15 text-fg shadow-[0_0_20px_-6px_rgba(124,92,255,0.9)]'
-          : 'border-line bg-card text-fg-mute hover:text-fg-dim'
+          ? 'border-transparent bg-gradient-to-r from-transparent to-brand/40 shadow-[0_0_20px_-6px_rgba(124,92,255,0.9)]'
+          : 'border-white/15 bg-canvas hover:bg-card'
       }`}
     >
+      {/* Track (32×18 to match Figma toggle sprite) */}
       <span
-        className={`relative h-[18px] w-[18px] rounded-full transition-all duration-300 ease-back ${
-          checked ? 'scale-110 bg-brand' : 'scale-100 bg-line'
+        className={`relative h-[18px] w-[32px] rounded-full transition-colors duration-300 ease-back ${
+          checked ? 'bg-brand' : 'bg-white/15'
         }`}
       >
-        {/* Pulse ring that expands out of the knob when switched on */}
         <span
-          className={`absolute inset-0 rounded-full transition-all duration-500 ease-soft ${
-            checked ? 'scale-[1.9] bg-brand/0 shadow-[0_0_0_2px_rgba(124,92,255,0.35)]' : 'scale-100'
-          }`}
-        />
-        <span
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300 ease-back ${
-            checked ? 'h-2 w-2 bg-white' : 'h-1.5 w-1.5 bg-fg-mute'
+          className={`absolute top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.4)] transition-all duration-300 ease-back ${
+            checked ? 'left-[16px]' : 'left-[2px]'
           }`}
         />
       </span>
@@ -251,15 +246,17 @@ export function SearchField({
 }) {
   return (
     <div
-      className={`flex items-center gap-3 rounded-full border border-line bg-card px-4 py-2.5 focus-within:border-line/80 ${className}`}
+      className={`flex items-center gap-2.5 rounded-full border-[0.5px] border-white/15 bg-transparent p-0.5 focus-within:border-white/25 ${className}`}
     >
-      <Icon name={icon} size={17} className="shrink-0 text-fg-mute" />
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border-[0.5px] border-white/15 bg-raised">
+        <Icon name={icon} size={18} className="text-fg-dim" />
+      </span>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="min-w-0 flex-1 bg-transparent text-[13px] text-fg outline-none placeholder:text-fg-mute"
+        className="min-w-0 flex-1 bg-transparent pr-3 text-[12px] text-fg outline-none placeholder:text-fg-mute"
       />
       {children}
     </div>
@@ -319,13 +316,13 @@ export function FilterMenu({
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-2 rounded-full border px-3.5 py-2 text-[13px] font-medium transition-colors ${
+        className={`flex items-center gap-2 rounded-full border-[0.5px] px-3 py-2.5 text-[12px] font-medium text-fg transition-colors ${
           selected.length
-            ? 'border-brand/50 bg-brand/15 text-fg'
-            : 'border-line bg-card text-fg-mute hover:text-fg-dim'
+            ? 'border-brand/50 bg-brand/15'
+            : 'border-white/15 bg-canvas hover:bg-card'
         }`}
       >
-        <Icon name="filter" size={15} />
+        <Icon name="filter" size={16} />
         Filter By
         {selected.length > 0 && (
           <span className="rounded-full bg-brand px-1.5 text-[11px] text-white">
@@ -397,12 +394,14 @@ export function SparkleHeading({
   subtitle?: string
 }) {
   return (
-    <div className="space-y-1">
-      <h2 className="flex items-center gap-2 text-xl font-semibold tracking-tight text-fg sm:text-2xl">
-        <Icon name="sparkle" size={20} className="text-brand-soft" />
+    <div className="flex flex-col gap-4">
+      <h2 className="flex items-center gap-3 text-[24px] leading-tight font-medium tracking-tight text-fg sm:text-[32px]">
+        <Icon name="sparkle" size={28} className="text-brand-soft" />
         {children}
       </h2>
-      {subtitle && <p className="text-xs text-fg-mute">{subtitle}</p>}
+      {subtitle && (
+        <p className="text-[12px] leading-snug text-fg-mute">{subtitle}</p>
+      )}
     </div>
   )
 }

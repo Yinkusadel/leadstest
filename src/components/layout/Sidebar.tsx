@@ -50,21 +50,23 @@ function NavButton({
       className={`group flex w-full items-center transition-colors ${
         row
           ? 'gap-3 rounded-xl px-3 py-2'
-          : 'flex-col justify-center gap-1.5 rounded-xl px-1 py-1.5'
-      } ${active ? 'text-brand-soft' : 'text-fg-mute hover:text-fg-dim'}`}
+          : 'flex-col justify-center gap-3 rounded-xl px-1 py-1.5'
+      } ${active ? 'text-fg' : 'text-fg-dim hover:text-fg'}`}
     >
       <span
-        className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-all duration-300 ease-back group-hover:scale-110 ${
+        className={`grid h-9 w-9 shrink-0 place-items-center rounded-[12px] transition-all duration-300 ease-back group-hover:scale-110 ${
           active
             ? 'nav-tile-active scale-105'
-            : 'opacity-60 group-hover:bg-white/5 group-hover:opacity-100'
+            : 'opacity-70 group-hover:bg-white/5 group-hover:opacity-100'
         }`}
       >
-        <Glyph size={22} active={active} />
+        <Glyph size={20} active={active} />
       </span>
       <span
         className={
-          row ? 'text-sm font-medium' : 'text-[10px] leading-none font-medium'
+          row
+            ? 'text-[14px] font-medium'
+            : 'text-[14px] leading-none font-medium'
         }
       >
         {item.label}
@@ -83,19 +85,21 @@ export function Sidebar({
   return (
     <nav
       aria-label="Main"
-      className="no-scrollbar sticky top-0 hidden h-svh shrink-0 flex-col items-center gap-1 overflow-y-auto border-r border-line-soft bg-panel px-2.5 py-4 lg:flex lg:w-[84px]"
+      className="no-scrollbar sticky top-0 hidden h-svh shrink-0 flex-col items-center gap-4 overflow-y-auto bg-panel px-3 pt-4 lg:flex lg:w-[84px]"
     >
-      <div className="mb-4 transition-transform duration-300 ease-back hover:scale-110">
-        <Logo size={40} />
+      <div className="transition-transform duration-300 ease-back hover:scale-110">
+        <Logo size={36} />
       </div>
-      {NAV.map((item) => (
-        <NavButton
-          key={item.id}
-          item={item}
-          active={item.id === active}
-          onSelect={onSelect}
-        />
-      ))}
+      <div className="flex w-full flex-col items-center gap-4 rounded-3xl p-2.5">
+        {NAV.map((item) => (
+          <NavButton
+            key={item.id}
+            item={item}
+            active={item.id === active}
+            onSelect={onSelect}
+          />
+        ))}
+      </div>
     </nav>
   )
 }

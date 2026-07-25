@@ -64,7 +64,7 @@ export function MessagePanel({
 
   return (
     <div
-      className="animate-fade-up flex flex-col gap-4 rounded-2xl border border-line bg-card p-4"
+      className="animate-fade-up flex flex-col gap-4 rounded-[24px] border border-line bg-card p-4"
       style={{ animationDelay: '100ms' }}
     >
       <SegmentedTabs
@@ -160,7 +160,7 @@ export function MessagePanel({
           <button
             type="button"
             onClick={() => onSend(draft)}
-            className="group flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black hover:shadow-[0_10px_30px_-8px_rgba(37,211,102,0.7)]"
+            className="group flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[12px] font-medium text-[#212121] hover:shadow-[0_10px_30px_-8px_rgba(37,211,102,0.7)]"
           >
             <Icon
               name="whatsapp"
