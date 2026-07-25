@@ -123,7 +123,8 @@ export function WishlistIcon({ size = 22, active }: NavIconProps) {
 }
 
 export function OrdersIcon({ size = 22, active }: NavIconProps) {
-  const f = active ? 'currentColor' : 'url(#navOrders)'
+  const id = useSvgId('navOrders')
+  const f = active ? 'currentColor' : `url(#${id})`
   return (
     <svg {...base(size, '0 0 20 20')}>
       <path
@@ -133,7 +134,7 @@ export function OrdersIcon({ size = 22, active }: NavIconProps) {
         fill={f}
       />
       <defs>
-        <Wash id="navOrders" transform="translate(3.03862 9.95531) scale(21.1667 23.3376)" />
+        <Wash id={id} transform="translate(3.03862 9.95531) scale(21.1667 23.3376)" />
       </defs>
     </svg>
   )
@@ -175,9 +176,10 @@ export function LeadsIcon({ size = 22 }: NavIconProps) {
 }
 
 export function StockIcon({ size = 22, active }: NavIconProps) {
-  const a = active ? 'currentColor' : 'url(#navStockA)'
-  const b = active ? 'currentColor' : 'url(#navStockB)'
-  const c = active ? 'currentColor' : 'url(#navStockC)'
+  const id = useSvgId('navStock')
+  const a = active ? 'currentColor' : `url(#${id}a)`
+  const b = active ? 'currentColor' : `url(#${id}b)`
+  const c = active ? 'currentColor' : `url(#${id}c)`
   return (
     <svg {...base(size, '0 0 36 36')}>
       <path
@@ -193,16 +195,17 @@ export function StockIcon({ size = 22, active }: NavIconProps) {
         fill={c}
       />
       <defs>
-        <Wash id="navStockA" transform="translate(11.0386 23.8253) scale(21.1667 8.12101)" />
-        <Wash id="navStockB" transform="translate(11.0386 13.9038) scale(21.1665 12.7296)" />
-        <Wash id="navStockC" transform="translate(11.0386 19.6895) scale(21.1667 8.12101)" />
+        <Wash id={`${id}a`} transform="translate(11.0386 23.8253) scale(21.1667 8.12101)" />
+        <Wash id={`${id}b`} transform="translate(11.0386 13.9038) scale(21.1665 12.7296)" />
+        <Wash id={`${id}c`} transform="translate(11.0386 19.6895) scale(21.1667 8.12101)" />
       </defs>
     </svg>
   )
 }
 
 export function ListingsIcon({ size = 22, active }: NavIconProps) {
-  const g = (n: string) => (active ? 'currentColor' : `url(#navList${n})`)
+  const id = useSvgId('navList')
+  const g = (n: string) => (active ? 'currentColor' : `url(#${id}${n})`)
   return (
     <svg {...base(size, '0 0 20 20')}>
       <path
@@ -222,17 +225,18 @@ export function ListingsIcon({ size = 22, active }: NavIconProps) {
         fill={g('D')}
       />
       <defs>
-        <Wash id="navListA" transform="translate(2.38222 5.39887) scale(9.22647 9.22651)" />
-        <Wash id="navListB" transform="translate(11.5482 5.39887) scale(9.22651)" />
-        <Wash id="navListC" transform="translate(2.38222 14.5659) scale(9.22647 9.22651)" />
-        <Wash id="navListD" transform="translate(11.5482 14.5659) scale(9.22651)" />
+        <Wash id={`${id}A`} transform="translate(2.38222 5.39887) scale(9.22647 9.22651)" />
+        <Wash id={`${id}B`} transform="translate(11.5482 5.39887) scale(9.22651)" />
+        <Wash id={`${id}C`} transform="translate(2.38222 14.5659) scale(9.22647 9.22651)" />
+        <Wash id={`${id}D`} transform="translate(11.5482 14.5659) scale(9.22651)" />
       </defs>
     </svg>
   )
 }
 
 export function SettingsIcon({ size = 22, active }: NavIconProps) {
-  const f = active ? 'currentColor' : 'url(#navSettings)'
+  const id = useSvgId('navSettings')
+  const f = active ? 'currentColor' : `url(#${id})`
   return (
     <svg {...base(size, '0 0 20 20')}>
       <path
@@ -242,7 +246,7 @@ export function SettingsIcon({ size = 22, active }: NavIconProps) {
         fill={f}
       />
       <defs>
-        <Wash id="navSettings" transform="translate(2.32399 9.95685) scale(23.3376 22.2524)" />
+        <Wash id={id} transform="translate(2.32399 9.95685) scale(23.3376 22.2524)" />
       </defs>
     </svg>
   )
